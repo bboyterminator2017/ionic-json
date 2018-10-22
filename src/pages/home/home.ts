@@ -26,7 +26,7 @@ export class HomePage {
 
   ionViewDidLoad(){
     
-    this.service.getEndereco("23095072")
+    this.service.getEndereco(this.formGroup.value['cep'])
         .subscribe(response => {
           console.log(response);
         });
