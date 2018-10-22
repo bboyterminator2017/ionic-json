@@ -24,7 +24,7 @@ export class HomePage {
 
   }
 
-  ionViewDidLoad(){
+  buscaCEP(){
     
     this.service.getEndereco(this.formGroup.value['cep'])
         .subscribe(response => {
