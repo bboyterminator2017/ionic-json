@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
+import { EnderecoService } from '../../service/endereco.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @IonicPage()
 @Component({
@@ -8,12 +10,27 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  formGroup : FormGroup;
+
+  constructor(public navCtrl: NavController,
+              public service: EnderecoService,
+              public formBuilder: FormBuilder) {
+
+    this.formGroup = this.formBuilder.group({
+      // Campos do formulário
+      cep : ['', [Validators.required,
+      Validators.minLength(8), Validators.maxLength(8)]]
+    });
 
   }
 
-  login(){
-    this.navCtrl.setRoot('CategoriasPage');
+  ionViewDidLoad(){
+    
+    this.service.getEndereco("23095072")
+        .subscribe(response => {
+          console.log(response);
+        });
+  
   }
 
 
