@@ -4,11 +4,11 @@
 
 <ion-content padding>
 
-  <form>
+  <form [formGroup]="formGroup" (ngSubmit)="buscaCep()">
     
     <ion-item>
         <ion-label stacked>Digite o cep</ion-label>
-        <ion-input type="text"></ion-input>
+        <ion-input type="text" formControlName="cep"></ion-input>
     </ion-item>
 
     <button ion-button block type="submit">Buscar</button>
