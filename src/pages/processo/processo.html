@@ -17,8 +17,11 @@
 
 
 <ion-content padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
     <ion-list>
-        <ion-item *ngFor="let processo of processo">
+        <ion-item *ngFor="let processo of processoPage">
           <h2>{{processo.id_processo}}</h2>
           <p>{{processo.assunto}}</p>
           <p>{{processo.ano}}</p>
@@ -26,4 +29,7 @@
           <p>{{processo.origem}}</p>
         </ion-item>
       </ion-list>
+      <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+          <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
 </ion-content>

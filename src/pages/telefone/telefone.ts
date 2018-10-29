@@ -16,35 +16,54 @@ import { Telefone } from '../../model/telefone';
   templateUrl: 'telefone.html',
 })
 export class TelefonePage {
-
-  telefone : Telefone[];
-  telefonePage : Telefone[] = [];
+  telefones : Telefone[];
+  telefonesPage : Telefone[] =[];
   page : number = 0;
 
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-          public service : TelefoneService,
-          public loading : LoadingController) {
+              public service : TelefoneService,
+              public loading : LoadingController) {
   }
 
-  ionViewDidLoad(){
+
+  ionViewDidLoad() {
     this.getTelefone();
   }
-
-  getTelefone() {
+   
+  getTelefone(){
     this.service.getTelefone()
-    .subscribe( response => {
-      this.telefone = response;
-      this.addPage();
+  .subscribe( response => {
+    this.telefones = response;
+    this.addPage();
     });
-    
+   
   }
-
   addPage(){
-    for (var i = 0; i < 10; i++){
-      this.telefonePage.push(this.telefone[this.page]);
+    for(var i = 0; i < 10; i++){
+      this.telefonesPage.push(this.telefones[this.page]);
       this.page++;
     }
-    console.log(this.telefonePage);
+    console.log(this.telefonesPage);
   }
+  doRefresh(refresher) {
+    this.telefonesPage = [];
+    setTimeout(() => {
+     this.getTelefone();
+     refresher.complete();
+    }, 2000);
+  }
+  doInfinite(infiniteScroll) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+
+      this.addPage();
+      infiniteScroll.complete();
+    }, 500);
+  }
+
+
+
 
 }
